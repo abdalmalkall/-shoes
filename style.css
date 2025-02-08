@@ -1,0 +1,213 @@
+/* General Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 80px 0 80px 0;
+}
+
+/* Header - Amazon Inspired */
+header {
+    width: 100%;
+    background-color: #131921;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Elements: Logo, Search, and Nav */
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+header .search {
+    flex: 1;
+    margin: 0 20px;
+}
+header .search input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+}
+header .nav {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+}
+
+/* Footer - Consistent with Header */
+footer {
+    width: 100%;
+    background-color: #131921;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Store Page Layout */
+#products, #cart {
+    background-color: white;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Titles */
+h1, h2 {
+    font-size: 36px;
+    color: #131921;
+    margin: 0 0 20px 0;
+}
+
+/* Flex Layout for Products */
+#products {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product {
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    flex: 1 1 calc(33% - 40px);
+}
+
+.product:hover {
+    transform: translateY(-10px);
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.product h3 {
+    font-size: 24px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.product p {
+    font-size: 18px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+/* Buttons - Amazon Style */
+button {
+    background-color: #f0c14b;
+    color: #111;
+    border: 1px solid #a88734;
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px 0;
+}
+
+button:hover {
+    background-color: #e2b33c;
+}
+
+/* Cart Page Layout */
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#cart-items li {
+    font-size: 18px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#total-price {
+    font-size: 24px;
+    color: #131921;
+    font-weight: bold;
+}
+
+#checkout-button, #clear-cart-button {
+    margin-top: 20px;
+    width: 45%;
+    font-size: 18px;
+}
+
+#clear-cart-button {
+    background-color: #e74c3c;
+    margin-left: 10px;
+}
+
+#clear-cart-button:hover {
+    background-color: #c0392b;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #131921;
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a:hover {
+    color: #f0c14b;
+}
+/* تنسيق زر PayPal */
+#paypal-button-container {
+    display: flex;
+    justify-content: center; /* توسيط الزر في الصفحة */
+    margin-top: 20px;
+}
+
+.paypal-button {
+    border-radius: 5px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background-color: #0070ba; /* اللون الأزرق الخاص بـ PayPal */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.paypal-button:hover {
+    background-color: #005fa3; /* اللون الأزرق الداكن عند المرور بالماوس */
+}
+
+.paypal-button:active {
+    background-color: #003d6a; /* اللون الأزرق الأكثر عمقًا عند الضغط */
+}
+
+.paypal-button:focus {
+    outline: none; /* إزالة الحدود حول الزر عند التركيز */
+}

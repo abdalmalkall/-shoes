@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Online Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Online Store</h1>
+    </header>
+
+    <section id="products">
+        <h2>Products</h2>
+        <div class="product">
+            <img src="product1.jpg" alt="Product 1">
+            <h3>Product 1</h3>
+            <p>Price: $50</p>
+            <button class="add-to-cart" data-name="Product 1" data-price="50">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="product2.jpg" alt="Product 2">
+            <h3>Product 2</h3>
+            <p>Price: $75</p>
+            <button class="add-to-cart" data-name="Product 2" data-price="75">Add to Cart</button>
+        </div>
+    </section>
+
+    <a href="cart.html" id="go-to-cart">Go to Cart</a>
+   
+    <footer>
+        <p>&copy; 2025 All Rights Reserved</p>
+    </footer>
+    <script src="script.js"></script>
+
+    <!-- PayPal Button Integration -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+
+
+    <div id="paypal-button-container"></div>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '100.00' // Set the total amount here
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Payment Successful! Welcome, ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+</body>
+</html>
