@@ -1,71 +1,49 @@
-// Store cart items in memory
-let cart = [];
+// script.js
 
-// Add product to cart
-const addToCartButtons = document.querySelectorAll('.add-to-cart');
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const name = button.getAttribute('data-name');
-        const price = parseFloat(button.getAttribute('data-price'));
+document.addEventListener("DOMContentLoaded", function () {
+    // ---------------------------
+    // Product Add-to-Cart Logic
+    // ---------------------------
+    const addToCartButtons = document.querySelectorAll(".add-to-cart");
 
-        // Add item to cart array
-        cart.push({ name, price });
+    addToCartButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const productName = this.getAttribute("data-name");
+            const productPrice = parseFloat(this.getAttribute("data-price"));
 
-        // Update cart display
-        updateCart();
-    });
-});
+            // Retrieve existing cart from localStorage (or initialize empty)
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            // Add the selected product to the cart array
+            cart.push({ name: productName, price: productPrice });
+            // Save the updated cart back to localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
 
-// Update cart display
-function updateCart() {
-    const cartItemsList = document.getElementById('cart-items');
-    const totalPriceElement = document.getElementById('total-price');
-
-    // Clear the current cart items
-    cartItemsList.innerHTML = '';
-    
-    // Add new items to cart list
-    let totalPrice = 0;
-    cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-        cartItemsList.appendChild(li);
-        totalPrice += item.price;
+            alert(productName + " has been added to your cart!");
+        });
     });
 
-    // Update total price
-    totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
-}
-
-// Checkout button action
-document.getElementById('checkout-button').addEventListener('click', () => {
-    if (cart.length > 0) {
-        alert('Your order has been placed successfully!');
-        cart = [];  // Clear the cart
-        updateCart();  // Update cart after checkout
-    } else {
-        alert('Your cart is empty!');
+    // ----------------------------------
+    // PayPal Button Integration Section
+    // ----------------------------------
+    // Check if the PayPal SDK has been loaded by verifying the paypal object exists
+    if (typeof paypal !== "undefined") {
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                // For demonstration, using a fixed amount.
+                // In a real-world scenario, you could calculate the total from the cart.
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: "100.00"  // Set the total amount here
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert("Payment Successful! Welcome, " + details.payer.name.given_name);
+                });
+            }
+        }).render("#paypal-button-container");
     }
 });
-
-// Clear cart button action
-document.getElementById('clear-cart-button').addEventListener('click', () => {
-    cart = [];  // Clear the cart
-    updateCart();  // Update cart after clearing
-});
-paypal.Buttons({
-    createOrder: function(data, actions) {
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: '100.00' // ضع هنا قيمة الإجمالي
-                }
-            }]
-        });
-    },
-    onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-            alert('تم الدفع بنجاح! مرحبًا ' + details.payer.name.given_name);
-        });
-    }
-}).render('#paypal-button-container');
